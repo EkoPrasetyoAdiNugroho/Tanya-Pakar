@@ -13,20 +13,26 @@
             }
         }
     ],
-    {
-        "src": "/assets/(.*)",
-        "dest": "/frontend/assets/$1"
-    },
-    {
-        "src": "/probe.txt",
-        "dest": "/frontend/probe.txt"
-    },
-    {
-        "src": "/(.*\\..*)",
-        "dest": "/frontend/$1"
-    },
-    {
-        "src": "/(.*)",
-        "dest": "/frontend/index.html"
-    }
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/backend/server.js"
+        },
+        {
+            "src": "/assets/(.*)",
+            "dest": "/frontend/assets/$1"
+        },
+        {
+            "src": "/probe.txt",
+            "dest": "/frontend/probe.txt"
+        },
+        {
+            "src": "/(.*\\..*)",
+            "dest": "/frontend/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/frontend/index.html"
+        }
+    ]
 }
