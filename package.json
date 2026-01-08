@@ -1,0 +1,12 @@
+{
+    "name": "tanya-pakar-monorepo",
+    "version": "1.0.0",
+    "scripts": {
+        "postinstall": "npm install --prefix frontend && npm install --prefix backend",
+        "build": "npm run build --prefix frontend"
+    },
+    "dependencies": {},
+    "engines": {
+        "node": "18.x"
+    }
+}
