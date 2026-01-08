@@ -38,13 +38,20 @@ app.get('/', (req, res) => {
 });
 
 // Connect to database and seed admin/data
+// Connect to database and seed admin/data
 connectDB().then(async () => {
+    // Only seed if not already seeded (optional optimization, but keep simple for now)
     await seedAdmin();
     await seedData();
 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    // Vercel requires exporting the app, not just listening
+    // Only listen if run directly (local dev)
+    if (require.main === module) {
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    }
 }).catch(err => {
-    console.error('Failed to connect to Database. Server shutting down.');
-    process.exit(1);
+    console.error('Failed to connect to Database.', err);
 });
+
+module.exports = app;
