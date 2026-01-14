@@ -35,13 +35,14 @@ export const AuthProvider = ({ children }) => {
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 setUser(data.user);
-                return true;
+                return { success: true };
             }
         } catch (error) {
-            console.error('Login failed', error.response?.data?.error || error.message);
-            return false;
+            const msg = error.response?.data?.error || error.message;
+            console.error('Login failed', msg);
+            return { success: false, error: msg };
         }
-        return false;
+        return { success: false, error: 'Unexpected login error' };
     };
 
     const register = async (username, password) => {
@@ -50,13 +51,14 @@ export const AuthProvider = ({ children }) => {
             if (data.success) {
                 localStorage.setItem('token', data.token);
                 setUser(data.user);
-                return true;
+                return { success: true };
             }
         } catch (error) {
-            console.error('Registration failed', error.response?.data?.error || error.message);
-            return false;
+            const msg = error.response?.data?.error || error.message;
+            console.error('Registration failed', msg);
+            return { success: false, error: msg };
         }
-        return false;
+        return { success: false, error: 'Unexpected registration error' };
     };
 
     const logout = () => {

@@ -12,11 +12,13 @@ const RegisterPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = await register(username, password);
-        if (success) {
+        setError(''); // Clear previous error
+        const result = await register(username, password);
+        if (result.success) {
             navigate('/diagnosis');
         } else {
-            setError('Registration failed. Username may be taken.');
+            // Show the actual error message from server/network
+            setError(result.error || 'Registration failed.');
         }
     };
 

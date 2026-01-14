@@ -12,11 +12,12 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = await login(username, password);
-        if (success) {
+        setError('');
+        const result = await login(username, password);
+        if (result.success) {
             navigate('/diagnosis');
         } else {
-            setError('Invalid username or password');
+            setError(result.error || 'Login failed.');
         }
     };
 
