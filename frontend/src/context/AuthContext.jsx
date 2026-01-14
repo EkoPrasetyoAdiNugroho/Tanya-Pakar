@@ -54,8 +54,17 @@ export const AuthProvider = ({ children }) => {
                 return { success: true };
             }
         } catch (error) {
-            const msg = error.response?.data?.error || error.message;
-            console.error('Registration failed', msg);
+            let msg = error.message;
+            if (error.response) {
+                // If server returned data (JSON or HTML)
+                if (error.response.data && typeof error.response.data === 'object') {
+                    msg = error.response.data.error || JSON.stringify(error.response.data);
+                } else {
+                    // Could be HTML (404/500 Page)
+                    msg = `Server Error (${error.response.status})`;
+                }
+            }
+            console.error('Registration failed:', msg);
             return { success: false, error: msg };
         }
         return { success: false, error: 'Unexpected registration error' };

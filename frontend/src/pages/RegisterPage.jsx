@@ -13,12 +13,25 @@ const RegisterPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(''); // Clear previous error
-        const result = await register(username, password);
-        if (result.success) {
-            navigate('/diagnosis');
-        } else {
-            // Show the actual error message from server/network
-            setError(result.error || 'Registration failed.');
+
+        try {
+            console.log("Attempting registration for:", username);
+            const result = await register(username, password);
+            console.log("Registration Result:", result);
+
+            if (result && result.success) {
+                console.log("Registration success, navigating...");
+                navigate('/diagnosis');
+            } else {
+                const errorMsg = result?.error || 'Registration failed (Unknown Error).';
+                setError(errorMsg);
+                // Fallback alert to ensure error is seen if React rendering fails
+                if (!errorMsg) alert("Registration failed but no error message returned.");
+            }
+        } catch (err) {
+            console.error("Critical Error in RegisterPage:", err);
+            setError("A critical error occurred. Check console.");
+            alert("A critical error occurred: " + err.message);
         }
     };
 
