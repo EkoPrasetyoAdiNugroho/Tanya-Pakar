@@ -7,8 +7,8 @@
             "destination": "/backend/server.js"
         },
         {
-            "source": "/(.*)",
-            "destination": "/frontend/dist/index.html"
+            "source": "/((?!assets/|.*\\..*).*)",
+            "destination": "/index.html"
         }
     ]
 }
